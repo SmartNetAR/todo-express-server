@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MVC</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="Controlador.js"></script>
+    <script src="Vista.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body">
+    <div class="container">
+
+        <div class="row mt-5">
+            <div class="col-xl-4">
+                <form id="formulario">
+                    <div class="form-group">
+
+                        <label for="titulo">Tidulo</label><br>
+                        <input class="form-control" type="text" name="titulo" required id="titulo"><br><br>
+
+                        <label for="descripcion">Descripcion</label><br>
+                        <input class="form-control" type="descripcion" name="descripcion" required
+                            id="descripcion"><br><br>
+
+                        <label for="complejidad">Complejidad</label><br>
+                        <input class="form-control" type="number" name="complejidad" required id="complejidad"><br><br>
+
+                    </div>
+                    <button class="btn btn-primary" type="submit">Agregar</button>
+                </form>
+            </div>
+            <div class="col-xl-8">
+                <h3>Tareas</h3>
+                <table class="table" id="tabla1">
+                    <thead>
+                        <tr>
+                            <th scope="col">Titulo</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Complejidad</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div id="error"></div>
+            </div>
+        </div>
+    </div>
+    </body>
+
+</html>
