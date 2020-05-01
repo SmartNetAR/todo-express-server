@@ -21,5 +21,9 @@ module.exports = {
     agregarConNombreComplejidad: `
         INSERT INTO tasks ( titulo, duracion, descripcion, terminada, usuario, id_complejidad ) VALUES 
         ( ?, ?, ?, ?, ?, ( SELECT id FROM complejidad WHERE nombre = ?) );
+    `,
+    modificarPorId: `
+        UPDATE tasks SET titulo = ?, descripcion = ?, id_complejidad = ?
+        WHERE id = ?;
     `
 }

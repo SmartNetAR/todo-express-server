@@ -102,3 +102,23 @@ exports.destroy = function (req, res) {
         res.sendStatus(200);
     });
 }
+
+exports.update = function (req, res) {
+   const id = req.params.id;
+   const { titulo, descripcion, id_complejidad } = req.body;
+   
+   db.query( queries.modificarPorId, [ titulo, descripcion, id_complejidad, id ], function ( err, result ) {
+        if (err) {
+            console.log("error", err)
+            res.status(500).send("Error:" + err.message);
+            return err;
+        }
+        console.log( "result", result );
+        if(result  && result.affectedRows > 0){
+            res.status(200).json({"menssage":"Se modificó la tarea"});
+        }else{
+            res.status(404).json({"menssage":"No se encontró la tarea"});
+        }
+        
+    });
+}
