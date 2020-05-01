@@ -23,7 +23,7 @@ module.exports = {
         ( ?, ?, ?, ?, ?, ( SELECT id FROM complejidad WHERE nombre = ?) );
     `,
     modificarPorId: `
-        UPDATE tasks SET titulo = ?, descripcion = ?, id_complejidad = ?
+        UPDATE tasks SET titulo = ?, descripcion = ?, id_complejidad = ( SELECT id FROM complejidad WHERE nombre = ?)
         WHERE id = ?;
     `
 }

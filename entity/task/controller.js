@@ -79,7 +79,7 @@ exports.store = function (req, res) {
 
     // res.json( req.body );
     const { titulo, duracion, descripcion, terminada, usuario, id_complejidad } = req.body;
-    db.query( queries.agregar, [titulo, duracion, descripcion, terminada, usuario, id_complejidad], function ( err, result ) {
+    db.query( queries.agregarConNombreComplejidad, [titulo, duracion, descripcion, terminada, usuario, id_complejidad], function ( err, result ) {
         if (err) {
             console.log("error", err)
             return res.status(500).send("Internal Error.");

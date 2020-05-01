@@ -21,7 +21,7 @@
                 <form id="formulario">
                     <div class="form-group">
 
-                        <input class="form-control"  type="text" name="taskId" required id="taskId"><br><br>
+                        <input class="form-control"  type="hidden" name="taskId"  id="taskId"><br><br>
 
                         <label for="titulo">Título</label><br>
                         <input class="form-control" type="text" name="titulo" required id="titulo"><br><br>
@@ -31,8 +31,12 @@
                             id="descripcion"><br><br>
 
                         <label for="complejidad">Complejidad</label><br>
-                        <input class="form-control" type="text" name="complejidad" required id="complejidad"><br><br>
-
+                        <!--<input class="form-control" type="text"   id="complejidadtxt">-->
+                        <select class="form-control"  name="complejidad" required id="complejidad"><br><br>
+                            <option value="baja">Baja</option>
+                            <option  value="media">Media</option>
+                            <option  value="alta">Alta</option>
+                        </select>
                     </div>
                     <button class="btn btn-primary" type="submit">Guardar</button>
                 </form>
