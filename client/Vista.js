@@ -16,13 +16,20 @@ class Vista {
 
         document.addEventListener("submit", (evento) => {
             evento.preventDefault();
-            var titulo = document.getElementById("titulo").value;
-            var descripcion = document.getElementById("descripcion").value;
-            var complejidad = parseInt(document.getElementById("complejidad").value);
-            var tarea = { titulo, descripcion, complejidad };
-            agregarTarea(tarea);
-            evento.target.reset();
+           
+            const titulo = document.getElementById("titulo").value;
+            const descripcion = document.getElementById("descripcion").value;
+            const complejidad = document.getElementById("complejidad").value;
+            const idTask = document.getElementById("taskId").value; 
+            const tarea = { titulo, descripcion, complejidad };
+            if(idTask){
+                tarea.idTask = idTask;
+                updateTask(tarea);
 
+            }else{
+                agregarTarea(tarea);
+            }
+            evento.target.reset();
         })
     }
 
@@ -74,8 +81,46 @@ function cargarRegistroTabla(tarea) {
 
 }
 
-const editarTarea = (tarea) => {
-    console.log(tarea);
+const editarTarea =(tarea) =>{
+         document.getElementById("titulo").value =tarea.titulo ;
+         document.getElementById("descripcion").value = tarea.descripcion ;
+         document.getElementById("complejidad").value= tarea.complejidad ;
+         document.getElementById("taskId").value=tarea.id;
+}
+
+const updateTask = async (tarea) => {
+    console.log(tarea)
+
+    const modifiedTask = {
+        "id":tarea.idTask,
+        "titulo": tarea.titulo,
+        "duracion": 60,
+        "descripcion": tarea.descripcion,
+        "terminada": false,
+        "usuario": "Pau",
+        "id_complejidad": tarea.complejidad
+    }
+
+    const urlBase = 'http://localhost:5000'
+
+    const options = {
+        method: "PUT",
+        body: JSON.stringify(modifiedTask),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    try {
+        await fetch(`${urlBase}/tareas/${tarea.idTask}`, options)
+        const respuesta = await fetch(`${urlBase}/tareas/`);
+        const tareas = await respuesta.json();
+        
+        borrarTablas();
+        tareas.forEach(cargarRegistroTabla);
+    } catch (error) {
+        mostrarError(error);
+    }
 }
 
 const borrarTarea = async (tarea) => {
@@ -86,22 +131,22 @@ const borrarTarea = async (tarea) => {
     }
 
     try {
-        await fetch(`${urlBase}/tareas/${tarea.id}` , options)
+        await fetch(`${urlBase}/tareas/${tarea.id}`, options)
 
 
-        const respuesta = await fetch( `${urlBase}/tareas/` );
+        const respuesta = await fetch(`${urlBase}/tareas/`);
         const tareas = await respuesta.json();
 
         borrarTablas();
         tareas.forEach(cargarRegistroTabla);
-        
+
     } catch (error) {
         mostrarError(error);
     }
 }
 const agregarTarea = async (tarea) => {
 
-    const newTask = 
+    const newTask =
     {
         "titulo": tarea.titulo,
         "duracion": 60,
@@ -114,7 +159,7 @@ const agregarTarea = async (tarea) => {
     const urlBase = 'http://localhost:5000'
     const options = {
         method: "POST",
-        body: JSON.stringify( newTask ),
+        body: JSON.stringify(newTask),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -124,12 +169,12 @@ const agregarTarea = async (tarea) => {
         await fetch(`${urlBase}/tareas/`, options);
 
 
-        const respuesta = await fetch( `${urlBase}/tareas/` );
+        const respuesta = await fetch(`${urlBase}/tareas/`);
         const tareas = await respuesta.json();
 
         borrarTablas();
         tareas.forEach(cargarRegistroTabla);
-        
+
     } catch (error) {
         mostrarError(error);
     }
