@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.5-10.4.10-MariaDB)
 # Base de datos: tareas_db
-# Tiempo de Generación: 2020-03-20 00:17:22 +0000
+# Tiempo de Generación: 2020-04-28 23:45:52 +0000
 # ************************************************************
 
 
@@ -19,6 +19,33 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+DROP DATABASE IF EXISTS `tareas_db`;
+CREATE DATABASE `tareas_db`;
+USE `tareas_db`;
+
+# Volcado de tabla complejidad
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `complejidad`;
+
+CREATE TABLE `complejidad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+LOCK TABLES `complejidad` WRITE;
+/*!40000 ALTER TABLE `complejidad` DISABLE KEYS */;
+
+INSERT INTO `complejidad` (`id`, `nombre`)
+VALUES
+	(1,'baja'),
+	(2,'media'),
+	(3,'alta');
+
+/*!40000 ALTER TABLE `complejidad` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 # Volcado de tabla tasks
 # ------------------------------------------------------------
@@ -29,22 +56,26 @@ CREATE TABLE `tasks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(25) DEFAULT NULL,
   `duracion` int(10) unsigned DEFAULT NULL,
-  `id_complejidad` int(11) NOT NULL,
   `descripcion` varchar(190) DEFAULT NULL,
   `terminada` tinyint(1) DEFAULT NULL,
   `usuario` varchar(25) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `id_complejidad` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tasks_FK` (`id_complejidad`),
+  CONSTRAINT `tasks_FK` FOREIGN KEY (`id_complejidad`) REFERENCES `complejidad` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
 
-INSERT INTO `tasks` (`id`, `titulo`, `duracion`, `complejidad`, `descripcion`, `terminada`, `usuario`)
+INSERT INTO `tasks` (`id`, `titulo`, `duracion`, `descripcion`, `terminada`, `usuario`, `id_complejidad`)
 VALUES
-	(1,'cocinar',120,'media','hacer la comida',1,'magui'),
-	(2,'ver una peli',95,'baja','ver una pelicula recomendada',1,'lau'),
-	(3,'completar trello',5,'baja','cargar el enlace de la grabación del día',1,'lau'),
-	(5,'practicar',180,'alta','hacer las actividades de mysql',0,'caro');
+	(20,'titulo de la tarea',60,'tarea creada con postman',0,'mina',3),
+	(21,'titulo de la tarea',60,'tarea creada con postman',0,'mina',3),
+	(22,'titulo de la tarea',60,'tarea creada con postman',0,'mina',3),
+	(23,'titulo de la tarea',60,'tarea creada con postman',0,'mina',3),
+	(28,'titulo de la tarea',NULL,'descripcion de la tarea',NULL,NULL,2),
+	(32,'test',60,'desc',0,'mina',2);
 
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;

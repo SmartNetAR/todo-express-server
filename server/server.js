@@ -22,10 +22,10 @@ app.use(cors());
 //     return res.sendStatus(401);
 //   }
 // })
-console.log( process.env.DB_DATABASE );
 
 app.use(router);
 app.listen(port, function () {
-  console.log( process.env.DB_DATABASE );
-  console.log("Example app listening on port 5000!");
+  console.log( "DB_HOST", process.env.DB_HOST );
+  console.log( "DB_DATABASE", process.env.DB_DATABASE );
+  console.log("Example app listening!");
 });
