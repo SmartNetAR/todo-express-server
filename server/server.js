@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const app = express();
 const router = require("../routes.js");
 const cors = require("cors");
-const port = 5000;
+const port = +process.env.NODE_PORT;
 
 app.use( morgan("dev") );
 app.use( express.json() );
@@ -27,5 +27,5 @@ app.use(router);
 app.listen(port, function () {
   console.log( "DB_HOST", process.env.DB_HOST );
   console.log( "DB_DATABASE", process.env.DB_DATABASE );
-  console.log("Example app listening!");
+  console.log(`Example app listening in port ${port}!`);
 });

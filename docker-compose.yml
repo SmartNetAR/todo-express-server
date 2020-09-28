@@ -1,0 +1,33 @@
+version: "3.5"
+
+services:
+    node:
+        container_name: todoexpress_node
+        image: node:current-slim
+        working_dir: /app
+        volumes:
+            - .:/app:cached
+        networks:
+            - todoexpressnet
+        ports:
+            - "8089:3000"
+        command: npm start
+
+    db:
+        container_name: todoexpress_sql
+        build:
+            dockerfile: Dockerfile
+            context: docker_mysql/
+        networks:
+            - todoexpressnet
+        ports:
+            - "3306:3306"
+        volumes:
+            - data:/var/lib/mysql
+
+volumes:
+    data:
+        driver: 'local'
+networks:
+    todoexpressnet:
+        driver: 'bridge'

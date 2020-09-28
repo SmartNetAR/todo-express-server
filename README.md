@@ -6,11 +6,8 @@ docker:
         #crear imagen
             docker build -t tareas-mysql .
 
-        # docker run -it -p 3606:3606  tareas-mysql bash
-
         # construye el contenedor a partir de una imagen
-        docker run -P --name=ctareas_mysql tareas-mysql 
-        docker run -p 3606:3606 --name=ctareas_mysql tareas-mysql 
+        docker run -p 3306:3306 --name=ctareas_mysql tareas-mysql 
         
         docker exec -it ctareas_mysql bash
 
@@ -25,7 +22,13 @@ docker:
 
 
         # construye el contenedor a partir de una imagen
-        docker run -p 8080:5000 -it tareas-node
-
 
         docker run -p 8080:5000 --name=ctareas_node -it --env-file ./.env --link ctareas_mysql tareas-node
+
+
+docker-compose:
+    docker-compose run --rm node npm i
+
+    docker-compose up -d
+
+    docker-compose exec node bash

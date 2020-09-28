@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node_modules/nodemon/bin/nodemon.js server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon server/server.js"
   },
@@ -15,7 +15,9 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
-    "mysql": "^2.18.1",
-    "nodemon": "^2.0.3"
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
